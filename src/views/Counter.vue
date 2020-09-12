@@ -1,10 +1,9 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
-    <p>{{ count }}</p>
+    <counter></counter>
     <button @click="increment">+</button>
     <button @click="decrement">-</button>
-    <counter></counter>
   </div>
 </template>
 
@@ -13,7 +12,7 @@ import Vue from 'vue'
 import Counter from '@/components/Counter.vue' // @ is an alias to /src
 
 export default Vue.extend({
-  name: 'Home',
+  name: 'Counter',
   components: {
     Counter
   },
