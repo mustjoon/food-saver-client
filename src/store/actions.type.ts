@@ -15,6 +15,7 @@ export enum ActionTypes {
   POKEMON_CREATE = 'createPokemon',
   POKEMON_EDIT = 'editPokemon',
   POKEMON_DELETE = 'deletePokemon',
+  POKEMON_SET_ACTIVE = 'setActivePokemon',
   LOGIN = 'login',
   LOGOUT = 'logout',
   REGISTER = 'register',

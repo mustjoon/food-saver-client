@@ -1,5 +1,5 @@
 <template>
-  <li>
+  <li @click="onItemClick">
     <div>
       {{ pokemon.id }}
       {{ pokemon.name }}
@@ -21,6 +21,10 @@ export default Vue.extend({
       required: true,
     },
     onRemoveClick: {
+      type: Function,
+      required: true,
+    },
+    onItemClick: {
       type: Function,
       required: true,
     },

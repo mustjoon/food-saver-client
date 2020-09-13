@@ -30,4 +30,5 @@ export enum MutationTypes {
   SET_POKEMON_ERRORS = 'setPokemonErrors',
   SET_POKEMON_LOADING = 'setPokemonLoading',
   POKEMON_REMOVE = 'removePokemon',
+  SET_ACTIVE_POKEMON = 'setActivePokemon',
 }

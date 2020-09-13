@@ -1,44 +1,46 @@
 <template>
-  <ul id="pokemon-list">
-    <pokemon
-      v-for="pokemon in pokemons"
-      :key="pokemon.id"
-      v-bind:onRemoveClick="() => onRemoveClick(pokemon.id)"
-      v-bind:pokemon="pokemon"
-    >
-    </pokemon>
-    {{
-      JSON.stringify(byId)
-    }}
-  </ul>
+  <div>
+    <loading-indicator v-if="isLoading"></loading-indicator>
+    <ul id="pokemon-list">
+      <pokemon
+        v-for="pokemon in pokemons"
+        :key="pokemon.id"
+        v-bind:onItemClick="() => onItemClick(pokemon.id)"
+        v-bind:onRemoveClick="() => onRemoveClick(pokemon.id)"
+        v-bind:pokemon="pokemon"
+      >
+      </pokemon>
+    </ul>
+  </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import { mapGetters } from 'vuex';
-import { FETCH_POKEMONS, POKEMON_DELETE } from '@/store/actions.type';
+import { ActionTypes } from '@/store/actions.type';
 import Pokemon from './Pokemon.vue';
+import LoadingIndicator from './LoadingIndicator.vue';
+import { Pokemon as PokemonType } from '@/types/pokemon.types';
 
 export default Vue.extend({
   name: 'PokemonList',
   mounted() {
-    this.$store.dispatch(FETCH_POKEMONS);
+    this.$store.dispatch(ActionTypes.FETCH_POKEMONS);
   },
   components: {
     Pokemon,
+    LoadingIndicator,
   },
   computed: {
-    ...mapGetters(['pokemons', 'activePokemon', 'byId']),
+    ...mapGetters(['pokemons', 'activePokemon', 'byId', 'isLoading']),
   },
 
   methods: {
     onRemoveClick(id: string): void {
-      this.$store.dispatch(POKEMON_DELETE, id);
-      console.log('remove will happen here');
+      this.$store.dispatch(ActionTypes.POKEMON_DELETE, id);
     },
-    decrement() {
-      this.$store.commit('decrement');
-      console.log(this.$store.state.count);
+    onItemClick(id: string) {
+      this.$store.dispatch(ActionTypes.POKEMON_SET_ACTIVE, id);
     },
   },
 });
