@@ -1,8 +1,7 @@
 # build stage
 FROM node:lts-alpine as build-stage
-
-RUN apt-get update && apt-get install -y \
-curl
+RUN apk update && apk add bash
+RUN apk add curl
 
 WORKDIR /app
 COPY package*.json ./
