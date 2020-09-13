@@ -69,7 +69,7 @@ pipeline {
            retry(5) {
               script {
                 sleep(1)
-                sh("bash ./bin/health-check.sh -v '$VERSION' -h '$HOST' -p '$CONTAINER_PORT'")
+                sh("bash ./bin/health-check.sh -v '$VERSION' -h '$HOST' -p '$HOST_PORT'")
               }
            }
         }
