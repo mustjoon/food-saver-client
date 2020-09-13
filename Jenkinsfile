@@ -30,7 +30,7 @@ pipeline {
      
     stage('Test') {
       steps {
-         sh 'PORT=9001 npm test:unit"'
+         sh 'PORT=9001 npm test:unit'
       }
     }
 
