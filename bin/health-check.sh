@@ -37,6 +37,8 @@ if [ -z "$port" ]; then
 fi
 
 
+
+
 version=$(/usr/bin/curl -s "http://$host:$port/version.json" | grep -Pom 1 '"version":"\K[^"]*')
 echo "$version"
 
