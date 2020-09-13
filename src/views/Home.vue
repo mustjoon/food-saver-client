@@ -1,36 +1,37 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <p>{{ count }}</p>
-    <button @click="increment">+</button>
-    <button @click="decrement">-</button>
-    <counter></counter>
+    <img alt="Vue logo" src="../assets/logo.png" />
+    <pokemon-list></pokemon-list>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import Counter from '@/components/Counter.vue' // @ is an alias to /src
+import Vue from 'vue';
+import PokemonList from '@/components/Pokemon-List.vue';
+
+import { mapGetters } from 'vuex';
 
 export default Vue.extend({
   name: 'Home',
-  components: {
-    Counter
+  components: { PokemonList },
+
+  watch: {
+    '$store.state.pokemons': function (oldValue, newValue) {
+      console.log('WATCH');
+      console.log(oldValue, newValue);
+    },
   },
+
   computed: {
-    count () {
-      return this.$store.state.count
-    }
+    ...mapGetters(['pokemons', 'activePokemon']),
   },
   methods: {
-    increment () {
-      this.$store.commit('increment')
-      console.log(this.$store.state.count)
+    increment() {
+      console.log(this.$store.state.count);
     },
-    decrement () {
-      this.$store.commit('decrement')
-      console.log(this.$store.state.count)
-    }
-  }
-})
+    decrement() {
+      console.log(this.$store.state.count);
+    },
+  },
+});
 </script>

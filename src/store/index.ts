@@ -1,23 +1,14 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-Vue.use(Vuex);
-export interface Todo {
-  id: number;
-  text: string;
-  done: boolean;
-}
-export interface State {
-  count: number;
-  todos: Todo[];
-}
+import auth from './auth.module';
+import pokemon from './pokemon.module';
 
-export default new Vuex.Store<State>({
-  state: {
-    count: 0,
-    todos: [],
+Vue.use(Vuex);
+
+export default new Vuex.Store<any>({
+  modules: {
+    auth,
+    pokemon,
   },
-  mutations: {},
-  actions: {},
-  modules: {},
 });

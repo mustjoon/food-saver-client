@@ -32,3 +32,6 @@ yarn lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### Will be using guidelines of project
+https://github.com/gothinkster/vue-realworld-example-app
