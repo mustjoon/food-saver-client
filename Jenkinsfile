@@ -9,7 +9,8 @@ pipeline {
     VERSION = "${PACKAGE_JSON['version']}"
     APP_NAME = "${PACKAGE_JSON['name']}"
     CONTAINER_NAME = "${APP_NAME}"
-    PORT = "8090"
+    HOST_PORT = "8090"
+    CONTAINER_PORT = "80"
     GIT_URL = "${PACKAGE_JSON['repository']['url']}"
     registry = "mustjoon/$APP_NAME"
   }
@@ -58,7 +59,7 @@ pipeline {
           sh("docker pull $registry:$VERSION")
           sh("(docker stop $CONTAINER_NAME > /dev/null && echo Stopped container $CONTAINER_NAME && \
             docker rm $CONTAINER_NAME ) 2>/dev/null || true")
-          sh("docker run -d --health-cmd='curl -f http://localhost:$PORT/health-check'  --health-interval=5s  --network 'home' --publish $PORT:$PORT --name='$CONTAINER_NAME'  $registry:$VERSION")
+          sh("docker run -d --health-cmd='curl -f http://localhost:$CONTAINER_PORT/health-check'  --health-interval=5s  --network 'home' --publish $HOST_PORT:$CONTAINER_PORT --name='$CONTAINER_NAME'  $registry:$VERSION")
          
         }
       }
@@ -68,7 +69,7 @@ pipeline {
            retry(5) {
               script {
                 sleep(1)
-                sh("bash ./scripts/health-check.sh -v '$VERSION' -h '$HOST' -p '$PORT'")
+                sh("bash ./scripts/health-check.sh -v '$VERSION' -h '$HOST' -p '$CONTAINER_PORT'")
               }
            }
         }
