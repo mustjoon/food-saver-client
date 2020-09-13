@@ -59,7 +59,7 @@ pipeline {
           sh("docker pull $registry:$VERSION")
           sh("(docker stop $CONTAINER_NAME > /dev/null && echo Stopped container $CONTAINER_NAME && \
             docker rm $CONTAINER_NAME ) 2>/dev/null || true")
-          sh("docker run -d --health-cmd='curl -f http://localhost:$CONTAINER_PORT/health-check'  --health-interval=5s  --network 'home' --publish $HOST_PORT:$CONTAINER_PORT --name='$CONTAINER_NAME'  $registry:$VERSION")
+          sh("docker run -d --health-cmd='curl -f http://localhost:$CONTAINER_PORT/version.json'  --health-interval=5s  --network 'home' --publish $HOST_PORT:$CONTAINER_PORT --name='$CONTAINER_NAME'  $registry:$VERSION")
          
         }
       }
