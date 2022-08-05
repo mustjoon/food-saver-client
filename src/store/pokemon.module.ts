@@ -40,7 +40,7 @@ const actions: ActionTree<State, State> = {
 
       context.commit(MutationTypes.SET_POKEMON_LIST, data.list);
     } catch (error) {
-      context.commit(MutationTypes.SET_POKEMON_ERRORS, error.response.data.errors);
+      context.commit(MutationTypes.SET_POKEMON_ERRORS, error?.response?.data?.errors);
     }
   },
   async [ActionTypes.POKEMON_SET_ACTIVE](context, id: string) {
@@ -61,7 +61,7 @@ const actions: ActionTree<State, State> = {
       await PokemonService.delete(id);
       context.commit(MutationTypes.POKEMON_REMOVE, id);
     } catch (error) {
-      context.commit(MutationTypes.SET_POKEMON_ERRORS, error.response.data.errors);
+      context.commit(MutationTypes.SET_POKEMON_ERRORS, error?.response?.data?.errors);
     }
   },
 };

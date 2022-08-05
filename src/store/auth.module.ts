@@ -1,5 +1,5 @@
 import { MutationTree, ActionTree } from 'vuex';
-import ApiService from '@/common/api.service';
+import ApiService, { ChatService } from '@/common/api.service';
 import JwtService from '@/common/jwt.service';
 import { State, Credentials, UserResponse, UpdateUserParams } from '@/types/auth.types';
 import { ActionTypes } from './actions.type';
@@ -30,6 +30,9 @@ const actions: ActionTree<State, State> = {
       context.commit(MutationTypes.SET_ERROR, response.data.errors);
     }
   },
+  async [ActionTypes.LOGIN_GOOGLE]() {
+    window.location.href = 'http://local-google-oauth-url.com:8080/auth/google';
+  },
   [ActionTypes.LOGOUT](context) {
     context.commit(MutationTypes.PURGE_AUTH);
   },
@@ -47,10 +50,10 @@ const actions: ActionTree<State, State> = {
       ApiService.setHeader();
 
       try {
-        const { data } = await ApiService.get<UserResponse>('user');
+        const { data } = await ApiService.get<UserResponse>('auth');
         context.commit(MutationTypes.SET_AUTH, data.user);
       } catch ({ response }) {
-        context.commit(MutationTypes.SET_ERROR, response.data.errors);
+        context.commit(MutationTypes.SET_ERROR, response?.data?.errors);
       }
     } else {
       context.commit(MutationTypes.PURGE_AUTH);
